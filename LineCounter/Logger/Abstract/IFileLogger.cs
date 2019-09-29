@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Linecounter.Logger.Abstract
 {
-    interface IFileLogger
+    public interface IFileLogger
     {
         void ShowFileNameMessage(string filePath);
         void ShowEmptyFileMessage(string filePath);

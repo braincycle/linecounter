@@ -8,16 +8,18 @@ using System.Linq;
 
 namespace Linecounter
 {
-    class FileReader
+    public class FileReader
     {
-        private IDictionary<int, string> _defectiveStrings = new Dictionary<int, string>();
-        private IDictionary<int, string> _matchingStrings = new Dictionary<int, string>();
-        private const NumberStyles _style = NumberStyles.AllowDecimalPoint;
+        private IDictionary<int, string> _defectiveStrings;
+        private IDictionary<int, string> _matchingStrings;
+        private readonly NumberStyles _style = NumberStyles.AllowDecimalPoint;
         private IFileLogger _fileLogger;
 
         public FileReader(IFileLogger fileLogger)
         {
             _fileLogger = fileLogger;
+            _defectiveStrings = new Dictionary<int, string>();
+            _matchingStrings = new Dictionary<int, string>();
         }
 
         public void RunOptions(Options opts)
@@ -173,7 +175,7 @@ namespace Linecounter
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        double StrConvert(string str)
+        public double StrConvert(string str)
         {
             string[] str_arr = str.Split(',');
             double sum = 0;
@@ -191,7 +193,7 @@ namespace Linecounter
             if ((defectiveStrings != null) && (defectiveStrings.Count > 0)) defectiveStrings.Clear();
         }
 
-        void WriteMatchStrings(IDictionary<int, string> matchingStrings)
+        public void WriteMatchStrings(IDictionary<int, string> matchingStrings)
         {
             if (_fileLogger != null)
             {
@@ -210,7 +212,7 @@ namespace Linecounter
             if (matchingStrings.Count == 0) Console.WriteLine($"\tNo matching strings found!");
         }
 
-        void WriteDefectiveStrings(IDictionary<int, string> defectiveStrings)
+        public void WriteDefectiveStrings(IDictionary<int, string> defectiveStrings)
         {
             if (_fileLogger != null)
             {
@@ -229,7 +231,7 @@ namespace Linecounter
             if (defectiveStrings.Count == 0) Console.WriteLine($"\tNo defective strings found!");
         }
 
-        bool IsMatchStr(string[] words)
+        public bool IsMatchStr(string[] words)
         {
             var isMatch = true;
             if (words.Length > 0)
@@ -247,7 +249,7 @@ namespace Linecounter
             return isMatch;
         }
 
-        bool IsNumber(string word)
+        public bool IsNumber(string word)
         {
             decimal number;
             try
